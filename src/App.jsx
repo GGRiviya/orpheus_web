@@ -1,5 +1,5 @@
 // src/App.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   MessageCircle,
@@ -11,6 +11,22 @@ import {
 import Pair from "./components/Pair";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  // Preloader timeout
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-950 text-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-green-500 border-t-transparent"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-950 text-white min-h-screen flex flex-col">
       {/* Navbar */}
@@ -29,9 +45,10 @@ function App() {
             Docs
           </a>
         </nav>
-        <button className="bg-green-500 px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition">
+        {/* <button className="bg-green-500 px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition">
           Get Started
-        </button>
+        </button> */}
+        <Pair text="Get Started" />
       </header>
 
       {/* Hero Section */}
@@ -48,11 +65,9 @@ function App() {
             with a reliable WhatsApp bot solution.
           </p>
           <div className="flex gap-4">
-            <button onClick={<Pair />} className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition">
-              Start Free
-            </button>
+            <Pair text="Connect" />
             <button className="border border-gray-600 px-6 py-3 rounded-lg font-semibold hover:border-green-400 transition">
-              Learn More
+              Contact Us
             </button>
           </div>
         </div>
@@ -65,7 +80,7 @@ function App() {
           {/* WhatsApp Chat Mockup */}
           <div className="h-full w-full bg-gradient-to-b from-gray-900 to-gray-800 p-4 overflow-y-auto">
             <div className="flex flex-col gap-3">
-              <div className="bg-green-500 text-black self-end px-4 py-2 rounded-xl rounded-br-none max-w-[75%]">
+              <div className="m-2 bg-green-500 text-black self-end px-4 py-2 rounded-xl rounded-br-none max-w-[75%]">
                 Hi! 👋 I’m OrpheusBot.
               </div>
               <div className="bg-gray-700 text-white self-start px-4 py-2 rounded-xl rounded-bl-none max-w-[75%]">
@@ -78,7 +93,7 @@ function App() {
                 Awesome! How do I start?
               </div>
               <div className="bg-green-500 text-black self-end px-4 py-2 rounded-xl rounded-br-none max-w-[75%]">
-                Just click “Start Free” and let’s go 🎉
+                Just send “!hi” command.. 🎉
               </div>
             </div>
           </div>
@@ -116,62 +131,63 @@ function App() {
       </section>
 
       {/* Pricing Section */}
-<section id="pricing" className="px-8 md:px-16 py-20 bg-gray-950">
-  <h3 className="text-3xl md:text-4xl font-bold text-center mb-6">
-    Simple, Transparent Pricing
-  </h3>
-  <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
-    Choose a plan that fits your needs. No hidden fees, cancel anytime.
-  </p>
+      <section id="pricing" className="px-8 md:px-16 py-20 bg-gray-950">
+        <h3 className="text-3xl md:text-4xl font-bold text-center mb-6">
+          Simple, Transparent Pricing
+        </h3>
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+          Choose a plan that fits your needs. No hidden fees, cancel anytime.
+        </p>
 
-  <div className="grid md:grid-cols-3 gap-8">
-    {/* Free Plan */}
-    <div className="p-8 bg-gray-900 rounded-xl shadow-lg text-center hover:scale-105 transition-transform">
-      <DollarSign className="mx-auto text-green-400 mb-4" size={40} />
-      <h4 className="text-2xl font-semibold mb-2">Free Plan</h4>
-      <p className="text-4xl font-bold mb-4">$0</p>
-      <ul className="text-gray-400 text-sm space-y-2 mb-6">
-        <li>✔ Basic automation</li>
-        <li>✔ 1 active session</li>
-        <li>✔ Community support</li>
-      </ul>
-      <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
-        Start Free
-      </button>
-    </div>
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Free Plan */}
+          <div className="p-8 bg-gray-900 rounded-xl shadow-lg text-center hover:scale-105 transition-transform">
+            <DollarSign className="mx-auto text-green-400 mb-4" size={40} />
+            <h4 className="text-2xl font-semibold mb-2">Free Plan</h4>
+            <p className="text-4xl font-bold mb-4">$0</p>
+            <ul className="text-gray-400 text-sm space-y-2 mb-6">
+              <li>✔ Basic automation</li>
+              <li>✔ 1 active session</li>
+              <li>✔ Community support</li>
+            </ul>
+            <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
+              Start Free
+            </button>
+          </div>
 
-    {/* Pro Plan */}
-    <div className="p-8 bg-gray-900 rounded-xl shadow-lg text-center border-2 border-green-500 hover:scale-105 transition-transform">
-      <DollarSign className="mx-auto text-green-400 mb-4" size={40} />
-      <h4 className="text-2xl font-semibold mb-2">Pro Plan</h4>
-      <p className="text-4xl font-bold mb-4">$29<span className="text-lg font-medium">/mo</span></p>
-      <ul className="text-gray-400 text-sm space-y-2 mb-6">
-        <li>✔ Unlimited automation</li>
-        <li>✔ Up to 5 sessions</li>
-        <li>✔ Priority support</li>
-      </ul>
-      <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
-        Upgrade
-      </button>
-    </div>
+          {/* Pro Plan */}
+          <div className="p-8 bg-gray-900 rounded-xl shadow-lg text-center border-2 border-green-500 hover:scale-105 transition-transform">
+            <DollarSign className="mx-auto text-green-400 mb-4" size={40} />
+            <h4 className="text-2xl font-semibold mb-2">Premium</h4>
+            <p className="text-4xl font-bold mb-4">
+              Rs.200<span className="text-lg font-medium">/mo</span>
+            </p>
+            <ul className="text-gray-400 text-sm space-y-2 mb-6">
+              <li>✔ Coming Soon</li>
+              {/* <li>✔ Up to 5 sessions</li>
+              <li>✔ Priority support</li> */}
+            </ul>
+            <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
+              Upgrade
+            </button>
+          </div>
 
-    {/* Enterprise Plan */}
-    <div className="p-8 bg-gray-900 rounded-xl shadow-lg text-center hover:scale-105 transition-transform">
-      <DollarSign className="mx-auto text-green-400 mb-4" size={40} />
-      <h4 className="text-2xl font-semibold mb-2">Enterprise</h4>
-      <p className="text-4xl font-bold mb-4">Custom</p>
-      <ul className="text-gray-400 text-sm space-y-2 mb-6">
-        <li>✔ Full automation suite</li>
-        <li>✔ Unlimited sessions</li>
-        <li>✔ Dedicated account manager</li>
-      </ul>
-      <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
-        Contact Us
-      </button>
-    </div>
-  </div>
-</section>
-
+          {/* Enterprise Plan */}
+          <div className="p-8 bg-gray-900 rounded-xl shadow-lg text-center hover:scale-105 transition-transform">
+            <DollarSign className="mx-auto text-green-400 mb-4" size={40} />
+            <h4 className="text-2xl font-semibold mb-2">Enterprise</h4>
+            <p className="text-4xl font-bold mb-4">Rs.1000+</p>
+            <ul className="text-gray-400 text-sm space-y-2 mb-6">
+              <li>✔ Customized Bot Commands</li>
+              <li>✔ Watermark-Free Experience</li>
+              <li>✔ Dedicated VPS Setup</li>
+            </ul>
+            <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
+              Contact Us
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* Docs CTA Section */}
       <section id="docs" className="px-8 md:px-16 py-20 bg-gray-900 text-center">
