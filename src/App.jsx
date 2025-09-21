@@ -9,9 +9,11 @@ import {
   Zap,
 } from "lucide-react";
 import Pair from "./components/Pair";
+import ContactModal from "./pages/ContactModal";
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   // Preloader timeout
   useEffect(() => {
@@ -45,9 +47,6 @@ function App() {
             Docs
           </a>
         </nav>
-        {/* <button className="bg-green-500 px-4 py-2 rounded-lg font-medium hover:bg-green-600 transition">
-          Get Started
-        </button> */}
         <Pair text="Get Started" />
       </header>
 
@@ -66,7 +65,10 @@ function App() {
           </p>
           <div className="flex gap-4">
             <Pair text="Connect" />
-            <button className="border border-gray-600 px-6 py-3 rounded-lg font-semibold hover:border-green-400 transition">
+            <button
+              onClick={() => setIsContactModalOpen(true)}
+              className="border border-gray-600 px-6 py-3 rounded-lg font-semibold hover:border-green-400 transition"
+            >
               Contact Us
             </button>
           </div>
@@ -150,7 +152,7 @@ function App() {
               <li>✔ 1 active session</li>
               <li>✔ Community support</li>
             </ul>
-            <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
+            <button className="cursor-pointer bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
               Start Free
             </button>
           </div>
@@ -164,8 +166,6 @@ function App() {
             </p>
             <ul className="text-gray-400 text-sm space-y-2 mb-6">
               <li>✔ Coming Soon</li>
-              {/* <li>✔ Up to 5 sessions</li>
-              <li>✔ Priority support</li> */}
             </ul>
             <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
               Upgrade
@@ -182,7 +182,10 @@ function App() {
               <li>✔ Watermark-Free Experience</li>
               <li>✔ Dedicated VPS Setup</li>
             </ul>
-            <button className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full">
+            <button
+              onClick={() => setIsContactModalOpen(true)}
+              className="bg-green-500 px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition w-full"
+            >
               Contact Us
             </button>
           </div>
@@ -208,6 +211,9 @@ function App() {
       <footer className="text-center text-gray-500 py-6 border-t border-gray-800">
         © {new Date().getFullYear()} Orpheus — All Rights Reserved
       </footer>
+
+      {/* Render the modal component, passing down the state and setter */}
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   );
 }
