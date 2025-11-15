@@ -25,7 +25,7 @@ function ContactModal({ isOpen, onClose }) {
 
     try {
       // Updated the URL to point to the new Node.js server
-      const response = await fetch("http://localhost:3001/api/contact", {
+      const response = await fetch("https://smtpserver.up.railway.app/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
